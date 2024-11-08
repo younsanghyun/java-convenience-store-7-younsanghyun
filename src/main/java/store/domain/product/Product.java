@@ -1,4 +1,6 @@
 package store.domain.product;
+import store.constant.ErrorMesage;
+import store.exception.OutOfStockException;
 
 public class Product {
     private final String name;
@@ -48,7 +50,7 @@ public class Product {
 
     private void validatePurchaseQuantity(int purchaseQuantity) {
         if (!canPurchase(purchaseQuantity)) {
-            throw new OutOfStockException(ErrorMessage.OUT_OF_STOCK);
+            throw new OutOfStockException(ErrorMesage.OUT_OF_STOCK);
         }
     }
     public String getName() {
