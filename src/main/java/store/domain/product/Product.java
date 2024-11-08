@@ -17,8 +17,53 @@ public class Product {
         return String.format("- %s %,d원 %s%s",
                 name,
                 price,
-                quantity > 0 ? quantity + "개" : "재고 없음",
-                promotionName != null && !promotionName.equals("null") ? " " + promotionName : ""
+                formatStockText(),
+                formatPromotionText()
         );
+    }
+    private String formatStockText() {
+        return hasStock() ? quantity + "개" : "재고 없음";
+    }
+
+    private String formatPromotionText() {
+        return hasPromotion() ? " " + promotionName : "";
+    }
+
+    public boolean hasStock() {
+        return quantity > 0;
+    }
+
+    public boolean hasPromotion() {
+        return promotionName != null && !promotionName.equals("null");
+    }
+
+    public boolean canPurchase(int requestQuantity) {
+        return quantity >= requestQuantity;
+    }
+
+    public Product decreaseQuantity(int purchaseQuantity) {
+        validatePurchaseQuantity(purchaseQuantity);
+        return new Product(name, price, quantity - purchaseQuantity, promotionName);
+    }
+
+    private void validatePurchaseQuantity(int purchaseQuantity) {
+        if (!canPurchase(purchaseQuantity)) {
+            throw new OutOfStockException(ErrorMessage.OUT_OF_STOCK);
+        }
+    }
+    public String getName() {
+        return name;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public String getPromotionName() {
+        return promotionName;
     }
 }
