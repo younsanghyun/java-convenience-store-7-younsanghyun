@@ -1,13 +1,12 @@
 package store.repository;
 
 import java.util.List;
+import java.util.Optional;
 import store.domain.product.Product;
 
-public class ProductRepository {
-    public List<Product> findAll() {
-        return null;
-    }
-
-    public <T> ScopedValue<T> findByName(String name) {
-    }
+public interface ProductRepository {
+    List<Product> findAll();
+    Optional<Product> findByName(String name);
 }
+
+
