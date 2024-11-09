@@ -1,9 +1,7 @@
 package store.service;
 
 import java.time.Clock;
-import java.util.List;
 import store.domain.order.OrderLine;
-import store.domain.promotion.FreeProduct;
 import store.repository.PromotionRepository;
 
 public class PromotionService {
@@ -15,7 +13,12 @@ public class PromotionService {
         this.clock = clock;
     }
 
-    public List<FreeProduct> applyPromotions(List<OrderLine> orderLines) {
-        return orderLines.stream()
+    private boolean isPromotionApplicable(OrderLine orderLine) {
+        return orderLine.getProduct().hasPromotion() &&
+                isPromotionValid(orderLine.getProduct().getPromotionName());
     }
+
+    private boolean isPromotionValid(String promotionName) {
+    }
+
 }
