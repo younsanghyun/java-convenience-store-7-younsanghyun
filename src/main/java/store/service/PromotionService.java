@@ -2,6 +2,7 @@ package store.service;
 
 import java.time.Clock;
 import java.util.List;
+import store.domain.order.OrderLine;
 import store.domain.promotion.FreeProduct;
 import store.repository.PromotionRepository;
 
@@ -14,5 +15,7 @@ public class PromotionService {
         this.clock = clock;
     }
 
-    public List<FreeProduct>
+    public List<FreeProduct> applyPromotions(List<OrderLine> orderLines) {
+        return orderLines.stream()
+    }
 }
