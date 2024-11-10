@@ -1,27 +1,51 @@
 package store.controller;
 
-import store.service.DiscountService;
+import store.domain.receipt.Receipt;
+import store.dto.OrderRequest;
 import store.service.OrderService;
 import store.service.ProductService;
-import store.service.PromotionService;
+import store.view.InputView;
+import store.view.OutputView;
 
 public class OrderController {
-    private final ProductService productService;
-    private final PromotionService promotionService;
     private final OrderService orderService;
-    private final DiscountService discountService;
+    private final InputView inputView;
+    private final OutputView outputView;
+    private final ProductService productService;
 
     public OrderController(
-            ProductService productService,
-            PromotionService promotionService,
             OrderService orderService,
-            DiscountService discountService) {
-        this.productService = productService;
-        this.promotionService = promotionService;
+            InputView inputView,
+            OutputView outputView,
+            ProductService productService
+    ) {
         this.orderService = orderService;
-        this.discountService = discountService;
-
+        this.inputView = inputView;
+        this.outputView = outputView;
+        this.productService = productService;
     }
 
+    public void start() {
+        outputView.printWelcome();
+        boolean continueShopping = true;
 
+        while (continueShopping) {
+            processOrder();
+            continueShopping = inputView.readContinueShopping();
+        }
+    }
+
+    private void processOrder() {
+        try {
+            outputView.printProducts(productService.getProduct());
+            OrderRequest orderRequest = inputView.readOrder();
+            boolean useMembership = inputView.readUseMembership();
+
+            Receipt receipt = orderService.createOrder(orderRequest, useMembership);
+            outputView.printReceipt(receipt);
+        } catch (IllegalArgumentException | IllegalStateException e) {
+            outputView.printError(e.getMessage());
+            processOrder();
+        }
+    }
 }
