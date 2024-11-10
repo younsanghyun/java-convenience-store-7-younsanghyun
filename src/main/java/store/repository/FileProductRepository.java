@@ -6,7 +6,6 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 import store.domain.product.Product;
 
 public class FileProductRepository implements ProductRepository {
@@ -34,7 +33,7 @@ public class FileProductRepository implements ProductRepository {
     private List<Product> loadProducts() {
         try {
             List<String> lines = readLines();
-            return parseProducts(lines.subList(1, lines.size()));
+            return parseProductsWithNoStock(lines.subList(1, lines.size()));
         } catch (IOException e) {
             throw new RuntimeException("[ERROR] 상품 파일을 읽을 수 없습니다.");
         }
@@ -44,10 +43,19 @@ public class FileProductRepository implements ProductRepository {
         return Files.readAllLines(Paths.get(PRODUCT_FILE_PATH));
     }
 
-    private List<Product> parseProducts(List<String> lines) {
-        return lines.stream()
-                .map(this::parseProduct)
-                .collect(Collectors.toList());
+    private List<Product> parseProductsWithNoStock(List<String> lines) {
+        List<Product> result = new ArrayList<>();
+        for(String line : lines) {
+            addProductWithNoStock(result, parseProduct(line));
+        }
+        return result;
+    }
+
+    private void addProductWithNoStock(List<Product> products, Product product) {
+        products.add(product);
+        if(needsNoStockProduct(product)) {
+            products.add(createNoStockProduct(product));
+        }
     }
 
     private Product parseProduct(String line) {
@@ -57,6 +65,20 @@ public class FileProductRepository implements ProductRepository {
                 Integer.parseInt(parts[1].trim()),
                 Integer.parseInt(parts[2].trim()),
                 parts[3].trim().equals("null") ? null : parts[3].trim()
+        );
+    }
+
+    private boolean needsNoStockProduct(Product product) {
+        return "MD추천상품".equals(product.getPromotionName()) ||
+                "탄산2+1".equals(product.getPromotionName());
+    }
+
+    private Product createNoStockProduct(Product product) {
+        return new Product(
+                product.getName(),
+                product.getPrice(),
+                0,
+                product.getPromotionName()
         );
     }
 }
