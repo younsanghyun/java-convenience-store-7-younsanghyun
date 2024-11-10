@@ -27,4 +27,3 @@ public class Promotion {
         return name;
     }
 }
-

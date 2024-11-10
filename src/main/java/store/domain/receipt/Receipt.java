@@ -56,4 +56,3 @@ public class Receipt {
         return totalAmount - promotionDiscountAmount - membershipDiscountAmount;
     }
 }
-

@@ -16,15 +16,6 @@ import store.view.InputView;
 import store.view.OutputView;
 
 public class AppConfig {
-    private final Clock clock;
-
-    public AppConfig() {
-        this.clock = Clock.systemDefaultZone();
-    }
-
-    public AppConfig(Clock clock) {
-        this.clock = clock;
-    }
 
     public OrderController orderController() {
         return new OrderController(
@@ -49,7 +40,7 @@ public class AppConfig {
     }
 
     public PromotionService promotionService() {
-        return new PromotionService(promotionRepository(), clock);
+        return new PromotionService(promotionRepository());
     }
 
     public DiscountService discountService() {

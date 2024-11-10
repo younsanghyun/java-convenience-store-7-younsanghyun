@@ -1,7 +1,6 @@
 package store.service;
 
-import java.time.Clock;
-import java.time.LocalDateTime;
+import camp.nextstep.edu.missionutils.DateTimes;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -12,11 +11,11 @@ import store.repository.PromotionRepository;
 
 public class PromotionService {
     private final PromotionRepository promotionRepository;
-    private final Clock clock;
 
-    public PromotionService(PromotionRepository promotionRepository, Clock clock) {
+
+    public PromotionService(PromotionRepository promotionRepository) {
         this.promotionRepository = promotionRepository;
-        this.clock = clock;
+
     }
 
     public List<FreeProduct> applyPromotions(List<OrderLine> orderLines) {
@@ -35,7 +34,7 @@ public class PromotionService {
 
     private boolean isPromotionValid(String promotionName) {
         return promotionRepository.findByName(promotionName)
-                .map(promotion -> promotion.isValid(LocalDateTime.now(clock)))
+                .map(promotion -> promotion.isValid(DateTimes.now()))
                 .orElse(false);
     }
 

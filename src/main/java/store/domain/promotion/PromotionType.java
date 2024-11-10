@@ -23,7 +23,7 @@ public enum PromotionType {
         return Arrays.stream(values())
                 .filter(type -> type.name.equals(name))
                 .findFirst()
-                .orElseThrow(() -> new InvalidPromotionException(ErrorMesage.INVALID_PROMOTION));
+                .orElseThrow(() -> new InvalidPromotionException(ErrorMesage.INVALID_PRODUCT_NAME));
     }
 
     public int calculateFreeQuantity(int purchaseQuantity) {

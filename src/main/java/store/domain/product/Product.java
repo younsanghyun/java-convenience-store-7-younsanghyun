@@ -16,23 +16,28 @@ public class Product {
     }
 
     public String getDisplayText() {
-        return String.format("- %s %,d원 %s%s",
-                name,
-                price,
-                formatStockText(),
-                formatPromotionText()
-        );
+        StringBuilder text = new StringBuilder("- ")
+                .append(name)
+                .append(" ")
+                .append(String.format("%,d", price))
+                .append("원 ")
+                .append(formatQuantityText());
+
+        if (hasPromotion()) {
+            text.append(formatPromotionText());
+        }
+        return text.toString();
     }
-    private String formatStockText() {
-        return hasStock() ? quantity + "개" : "재고 없음";
+
+    private String formatQuantityText() {
+        if (quantity <= 0) {
+            return "재고 없음";
+        }
+        return quantity + "개";
     }
 
     private String formatPromotionText() {
-        return hasPromotion() ? " " + promotionName : "";
-    }
-
-    public boolean hasStock() {
-        return quantity > 0;
+        return " " + promotionName;
     }
 
     public boolean hasPromotion() {
