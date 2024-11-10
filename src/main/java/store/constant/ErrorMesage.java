@@ -10,4 +10,5 @@ public class ErrorMesage {
     public static final String INVALID_QUANTITY = "[ERROR] 수량은 1개 이상이어야 합니다.";
     public static final String INVALID_PROMOTION = "[ERROR] 유효하지 않은 프로모션입니다.";
     public static final String INVALID_PRODUCT_NAME = "[ERROR] 올바르지 않은 상품명입니다.";
+    public static final String INVALID_ORDER_ITEMS = "[ERROR] 주문 상품 목록이 비어있습니다.";
 }

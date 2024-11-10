@@ -10,6 +10,8 @@ public class OrderItemRequest {
     public OrderItemRequest(String productName, int quantity) {
         this.productName = productName;
         this.quantity = quantity;
+        validateProductName(productName);
+        validateQuantity(quantity);
     }
 
     private void validateProductName(String productName) {
