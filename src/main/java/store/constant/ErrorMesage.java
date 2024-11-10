@@ -9,4 +9,5 @@ public class ErrorMesage {
     public static final String OUT_OF_STOCK = "[ERROR] 재고 수량을 초과하여 구매할 수 없습니다.";
     public static final String INVALID_QUANTITY = "[ERROR] 수량은 1개 이상이어야 합니다.";
     public static final String INVALID_PROMOTION = "[ERROR] 유효하지 않은 프로모션입니다.";
+    public static final String INVALID_PRODUCT_NAME = "[ERROR] 올바르지 않은 상품명입니다.";
 }
