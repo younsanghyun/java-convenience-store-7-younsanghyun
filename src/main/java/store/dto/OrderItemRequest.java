@@ -8,10 +8,11 @@ public class OrderItemRequest {
     private final int quantity;
 
     public OrderItemRequest(String productName, int quantity) {
-        this.productName = productName;
-        this.quantity = quantity;
         validateProductName(productName);
         validateQuantity(quantity);
+        this.productName = productName;
+        this.quantity = quantity;
+
     }
 
     private void validateProductName(String productName) {

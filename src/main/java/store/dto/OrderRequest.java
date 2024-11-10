@@ -9,9 +9,8 @@ public class OrderRequest {
     private final List<OrderItemRequest> items;
 
     public OrderRequest(List<OrderItemRequest> items) {
-        this.items = new ArrayList<>(items);
         validateItems(items);
-
+        this.items = new ArrayList<>(items);
     }
 
     private void  validateItems(List<OrderItemRequest> items) {
