@@ -1,8 +1,9 @@
-package store.service;
+package store.service.order;
 
 import store.domain.product.Product;
 import store.dto.OrderItemRequest;
 import store.dto.OrderRequest;
+import store.service.product.ProductService;
 import store.validator.ProductValidator;
 
 public class OrderValidationService {

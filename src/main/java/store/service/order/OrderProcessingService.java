@@ -1,9 +1,10 @@
-package store.service;
+package store.service.order;
 
 import store.domain.order.OrderLine;
 import store.domain.product.Product;
 import store.domain.promotion.PromotionStock;
 import store.dto.OrderItemRequest;
+import store.service.promotion.PromotionStockService;
 import store.viewhandler.ViewHandler;
 
 public class OrderProcessingService{

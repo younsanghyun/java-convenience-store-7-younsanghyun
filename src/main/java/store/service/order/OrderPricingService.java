@@ -1,9 +1,11 @@
-package store.service;
+package store.service.order;
 
 import java.util.List;
 import store.domain.order.OrderLine;
 import store.domain.promotion.FreeProduct;
 import store.domain.receipt.Receipt;
+import store.service.discount.DiscountService;
+import store.service.promotion.PromotionService;
 
 public class OrderPricingService {
     private final PromotionService promotionService;

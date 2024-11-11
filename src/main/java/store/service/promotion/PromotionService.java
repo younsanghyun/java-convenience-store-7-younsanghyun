@@ -1,4 +1,4 @@
-package store.service;
+package store.service.promotion;
 
 import camp.nextstep.edu.missionutils.DateTimes;
 import java.util.List;

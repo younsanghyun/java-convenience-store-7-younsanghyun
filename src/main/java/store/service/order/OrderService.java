@@ -1,10 +1,11 @@
-package store.service;
+package store.service.order;
 
 import java.util.List;
 import java.util.stream.Collectors;
 import store.domain.order.OrderLine;
 import store.domain.receipt.Receipt;
 import store.dto.OrderRequest;
+import store.service.product.ProductService;
 import store.viewhandler.ViewHandler;
 
 public class OrderService {

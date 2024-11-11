@@ -1,4 +1,4 @@
-package store.service;
+package store.service.promotion;
 
 import java.util.List;
 import store.constant.ErrorMesage;

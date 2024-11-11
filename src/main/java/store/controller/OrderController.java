@@ -2,8 +2,8 @@ package store.controller;
 
 import store.domain.receipt.Receipt;
 import store.dto.OrderRequest;
-import store.service.OrderService;
-import store.service.ProductService;
+import store.service.order.OrderService;
+import store.service.product.ProductService;
 import store.viewhandler.ViewHandler;
 
 public class OrderController {
