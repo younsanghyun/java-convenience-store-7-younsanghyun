@@ -1,4 +1,4 @@
-package store.service;
+package store.Validator;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.assertj.core.api.Assertions.assertThatCode;
