@@ -1,7 +1,8 @@
 package store.config;
 
-import java.time.Clock;
+import store.controller.MainController;
 import store.controller.OrderController;
+import store.controller.ReceiptController;
 import store.repository.FileProductRepository;
 import store.repository.FilePromotionRepository;
 import store.repository.ProductRepository;
@@ -14,16 +15,32 @@ import store.validator.InputValidator;
 import store.validator.ProductValidator;
 import store.view.InputView;
 import store.view.OutputView;
+import store.viewhandler.ViewHandler;
 
 public class AppConfig {
+
+    public MainController mainController() {
+        return new MainController(
+                orderController(),
+                receiptController(),
+                viewHandler()
+        );
+    }
 
     public OrderController orderController() {
         return new OrderController(
                 orderService(),
-                inputView(),
-                outputView(),
-                productService()
+                productService(),
+                viewHandler()
         );
+    }
+
+    public ReceiptController receiptController() {
+        return new ReceiptController(viewHandler());
+    }
+
+    public ViewHandler viewHandler() {
+        return new ViewHandler(inputView(), outputView());
     }
 
     public OrderService orderService() {
@@ -71,4 +88,3 @@ public class AppConfig {
         return new OutputView();
     }
 }
-

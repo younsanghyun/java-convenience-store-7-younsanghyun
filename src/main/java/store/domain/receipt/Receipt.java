@@ -26,6 +26,7 @@ public class Receipt {
         this.membershipDiscountAmount = membershipDiscountAmount;
     }
 
+
     public List<OrderLine> getOrderLines() {
         return new ArrayList<>(orderLines);
     }
