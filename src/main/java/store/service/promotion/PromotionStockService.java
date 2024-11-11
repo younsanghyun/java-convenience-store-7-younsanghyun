@@ -23,18 +23,12 @@ public class PromotionStockService {
     }
 
     private Product findProductWithPromotion(List<Product> products, String productName) {
-        return products.stream()
-                .filter(p -> p.getName().equals(productName))
-                .filter(Product::hasPromotion)
-                .findFirst()
+        return products.stream().filter(p -> p.getName().equals(productName)).filter(Product::hasPromotion).findFirst()
                 .orElseThrow(() -> new InvalidInputException(ErrorMesage.PRODUCT_NOT_FOUND));
     }
 
     private Product findRegularProduct(List<Product> products, String productName) {
-        return products.stream()
-                .filter(p -> p.getName().equals(productName))
-                .filter(p -> !p.hasPromotion())
-                .findFirst()
+        return products.stream().filter(p -> p.getName().equals(productName)).filter(p -> !p.hasPromotion()).findFirst()
                 .orElseThrow(() -> new InvalidInputException(ErrorMesage.PRODUCT_NOT_FOUND));
     }
 }

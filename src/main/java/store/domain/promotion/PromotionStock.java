@@ -12,8 +12,7 @@ public class PromotionStock {
     }
 
     public boolean hasEnoughPromotionStock(int requestQuantity) {
-        return promotionProduct.hasPromotion() &&
-                promotionProduct.getQuantity() >= requestQuantity;
+        return promotionProduct.hasPromotion() && promotionProduct.getQuantity() >= requestQuantity;
     }
 
     public int calculateRegularPriceQuantity(int requestQuantity) {

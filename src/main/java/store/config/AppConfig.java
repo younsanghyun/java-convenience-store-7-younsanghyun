@@ -23,18 +23,11 @@ import store.viewhandler.ViewHandler;
 
 public class AppConfig {
     public MainController mainController() {
-        return new MainController(
-                orderController(),
-                receiptController(),
-                viewHandler()
-        );
+        return new MainController(orderController(), receiptController(), viewHandler());
     }
 
     public OrderController orderController() {
-        return new OrderController(
-                orderService(),
-                productService(),
-                viewHandler()
+        return new OrderController(orderService(), productService(), viewHandler()
 
         );
     }
@@ -48,26 +41,16 @@ public class AppConfig {
     }
 
     public OrderService orderService() {
-        return new OrderService(
-                orderValidationService(),
-                orderProcessingService(),
-                orderPricingService(),
-                productService()
-        );
+        return new OrderService(orderValidationService(), orderProcessingService(), orderPricingService(),
+                productService());
     }
 
     public OrderValidationService orderValidationService() {
-        return new OrderValidationService(
-                productService(),
-                productValidator()
-        );
+        return new OrderValidationService(productService(), productValidator());
     }
 
     public OrderPricingService orderPricingService() {
-        return new OrderPricingService(
-                promotionService(),
-                discountService()
-        );
+        return new OrderPricingService(promotionService(), discountService());
     }
 
     public ProductService productService() {

@@ -26,9 +26,7 @@ public class FileProductRepository implements ProductRepository {
 
     @Override
     public Optional<Product> findByName(String name) {
-        return products.stream()
-                .filter(product -> product.getName().equals(name))
-                .findFirst();
+        return products.stream().filter(product -> product.getName().equals(name)).findFirst();
     }
 
     private List<Product> loadProducts() {
@@ -46,7 +44,7 @@ public class FileProductRepository implements ProductRepository {
 
     private List<Product> parseProductsWithNoStock(List<String> lines) {
         List<Product> result = new ArrayList<>();
-        for(String line : lines) {
+        for (String line : lines) {
             addProductWithNoStock(result, parseProduct(line));
         }
         return result;
@@ -54,32 +52,22 @@ public class FileProductRepository implements ProductRepository {
 
     private void addProductWithNoStock(List<Product> products, Product product) {
         products.add(product);
-        if(needsNoStockProduct(product)) {
+        if (needsNoStockProduct(product)) {
             products.add(createNoStockProduct(product));
         }
     }
 
     private Product parseProduct(String line) {
         String[] parts = line.split(DELIMITER);
-        return new Product(
-                parts[0].trim(),
-                Integer.parseInt(parts[1].trim()),
-                Integer.parseInt(parts[2].trim()),
-                parts[3].trim().equals("null") ? null : parts[3].trim()
-        );
+        return new Product(parts[0].trim(), Integer.parseInt(parts[1].trim()), Integer.parseInt(parts[2].trim()),
+                parts[3].trim().equals("null") ? null : parts[3].trim());
     }
 
     private boolean needsNoStockProduct(Product product) {
-        return "MD추천상품".equals(product.getPromotionName()) ||
-                "탄산2+1".equals(product.getPromotionName());
+        return "MD추천상품".equals(product.getPromotionName()) || "탄산2+1".equals(product.getPromotionName());
     }
 
     private Product createNoStockProduct(Product product) {
-        return new Product(
-                product.getName(),
-                product.getPrice(),
-                0,
-                product.getPromotionName()
-        );
+        return new Product(product.getName(), product.getPrice(), 0, product.getPromotionName());
     }
 }

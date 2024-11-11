@@ -12,13 +12,8 @@ public class Receipt {
     private final int promotionDiscountAmount;
     private final int membershipDiscountAmount;
 
-    public Receipt(
-            List<OrderLine> orderLines,
-            List<FreeProduct> freeProducts,
-            int totalAmount,
-            int promotionDiscountAmount,
-            int membershipDiscountAmount
-    ) {
+    public Receipt(List<OrderLine> orderLines, List<FreeProduct> freeProducts, int totalAmount,
+                   int promotionDiscountAmount, int membershipDiscountAmount) {
         this.orderLines = new ArrayList<>(orderLines);
         this.freeProducts = new ArrayList<>(freeProducts);
         this.totalAmount = totalAmount;
@@ -36,9 +31,7 @@ public class Receipt {
     }
 
     public int getTotalQuantity() {
-        return orderLines.stream()
-                .mapToInt(OrderLine::getQuantity)
-                .sum();
+        return orderLines.stream().mapToInt(OrderLine::getQuantity).sum();
     }
 
     public int getTotalAmount() {

@@ -7,11 +7,8 @@ public class MainController {
     private final ReceiptController receiptController;
     private final ViewHandler viewHandler;
 
-    public MainController(
-            OrderController orderController,
-            ReceiptController receiptController,
-            ViewHandler viewHandler
-    ) {
+    public MainController(OrderController orderController, ReceiptController receiptController,
+                          ViewHandler viewHandler) {
         this.orderController = orderController;
         this.receiptController = receiptController;
         this.viewHandler = viewHandler;

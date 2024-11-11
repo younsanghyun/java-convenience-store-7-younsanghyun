@@ -8,11 +8,7 @@ public class Promotion {
     private final LocalDate startDate;
     private final LocalDate endDate;
 
-    public Promotion(
-            String name,
-            LocalDate startDate,
-            LocalDate endDate
-    ) {
+    public Promotion(String name, LocalDate startDate, LocalDate endDate) {
         this.name = name;
         this.startDate = startDate;
         this.endDate = endDate;

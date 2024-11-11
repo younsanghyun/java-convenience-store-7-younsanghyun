@@ -28,9 +28,7 @@ public class FilePromotionRepository implements PromotionRepository {
 
     @Override
     public Optional<Promotion> findByName(String name) {
-        return promotions.stream()
-                .filter(promotion -> promotion.getName().equals(name))
-                .findFirst();
+        return promotions.stream().filter(promotion -> promotion.getName().equals(name)).findFirst();
     }
 
     private List<Promotion> loadPromotions() {
@@ -47,17 +45,11 @@ public class FilePromotionRepository implements PromotionRepository {
     }
 
     private List<Promotion> parsePromotions(List<String> lines) {
-        return lines.stream()
-                .map(this::parsePromotion)
-                .collect(Collectors.toList());
+        return lines.stream().map(this::parsePromotion).collect(Collectors.toList());
     }
 
     private Promotion parsePromotion(String line) {
         String[] parts = line.split(DELIMITER);
-        return new Promotion(
-                parts[0].trim(),
-                LocalDate.parse(parts[3].trim()),
-                LocalDate.parse(parts[4].trim())
-        );
+        return new Promotion(parts[0].trim(), LocalDate.parse(parts[3].trim()), LocalDate.parse(parts[4].trim()));
     }
 }

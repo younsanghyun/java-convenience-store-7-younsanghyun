@@ -1,4 +1,5 @@
 package store.domain.product;
+
 import store.constant.ErrorMesage;
 import store.exception.OutOfStockException;
 
@@ -16,12 +17,8 @@ public class Product {
     }
 
     public String getDisplayText() {
-        StringBuilder text = new StringBuilder("- ")
-                .append(name)
-                .append(" ")
-                .append(String.format("%,d", price))
-                .append("원 ")
-                .append(formatQuantityText());
+        StringBuilder text = new StringBuilder("- ").append(name).append(" ").append(String.format("%,d", price))
+                .append("원 ").append(formatQuantityText());
 
         if (hasPromotion()) {
             text.append(formatPromotionText());
@@ -58,6 +55,7 @@ public class Product {
             throw new OutOfStockException(ErrorMesage.OUT_OF_STOCK);
         }
     }
+
     public String getName() {
         return name;
     }

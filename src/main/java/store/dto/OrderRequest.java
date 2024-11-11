@@ -13,7 +13,7 @@ public class OrderRequest {
         this.items = new ArrayList<>(items);
     }
 
-    private void  validateItems(List<OrderItemRequest> items) {
+    private void validateItems(List<OrderItemRequest> items) {
         if (items == null || items.isEmpty()) {
             throw new InvalidInputException(ErrorMesage.INVALID_ORDER_ITEMS);
         }

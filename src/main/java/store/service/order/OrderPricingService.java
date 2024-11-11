@@ -26,15 +26,11 @@ public class OrderPricingService {
     }
 
     private int calculateTotalAmount(List<OrderLine> orderLines) {
-        return orderLines.stream()
-                .mapToInt(OrderLine::getAmount)
-                .sum();
+        return orderLines.stream().mapToInt(OrderLine::getAmount).sum();
     }
 
     private int calculatePromotionDiscount(List<FreeProduct> freeProducts) {
-        return freeProducts.stream()
-                .mapToInt(FreeProduct::getDiscountAmount)
-                .sum();
+        return freeProducts.stream().mapToInt(FreeProduct::getDiscountAmount).sum();
     }
 
     private int calculateMembershipDiscount(int amountAfterPromotion, boolean useMembership) {

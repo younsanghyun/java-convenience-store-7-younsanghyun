@@ -7,7 +7,7 @@ import store.dto.OrderItemRequest;
 import store.service.promotion.PromotionStockService;
 import store.viewhandler.ViewHandler;
 
-public class OrderProcessingService{
+public class OrderProcessingService {
     private final PromotionStockService promotionStockService;
 
     public OrderProcessingService(PromotionStockService promotionStockService) {
@@ -19,38 +19,27 @@ public class OrderProcessingService{
         return processPromotionPurchase(stock, item, viewHandler);
     }
 
-    private OrderLine processPromotionPurchase(
-            PromotionStock stock,
-            OrderItemRequest item,
-            ViewHandler viewHandler) {
+    private OrderLine processPromotionPurchase(PromotionStock stock, OrderItemRequest item, ViewHandler viewHandler) {
         int requestQuantity = item.getQuantity();
 
         if (!stock.hasEnoughPromotionStock(requestQuantity)) {
             int regularPriceQuantity = stock.calculateRegularPriceQuantity(requestQuantity);
-            requestQuantity = handleInsufficientStock(
-                    stock, regularPriceQuantity, requestQuantity, viewHandler);
+            requestQuantity = handleInsufficientStock(stock, regularPriceQuantity, requestQuantity, viewHandler);
         }
 
         return createOrderLine(stock, requestQuantity);
     }
 
-    private int handleInsufficientStock(
-            PromotionStock stock,
-            int regularPriceQuantity,
-            int requestQuantity,
-            ViewHandler viewHandler) {
-        boolean acceptRegularPrice = viewHandler.readAcceptRegularPrice(
-                stock.getProductName(),
-                regularPriceQuantity
-        );
+    private int handleInsufficientStock(PromotionStock stock, int regularPriceQuantity, int requestQuantity,
+                                        ViewHandler viewHandler) {
+        boolean acceptRegularPrice = viewHandler.readAcceptRegularPrice(stock.getProductName(), regularPriceQuantity);
 
         return acceptRegularPrice ? requestQuantity : requestQuantity - regularPriceQuantity;
     }
 
     private OrderLine createOrderLine(PromotionStock stock, int quantity) {
-        Product product = stock.hasEnoughPromotionStock(quantity) ?
-                stock.decreasePromotionStock(quantity) :
-                stock.decreaseRegularStock(quantity);
+        Product product = stock.hasEnoughPromotionStock(quantity) ? stock.decreasePromotionStock(quantity)
+                : stock.decreaseRegularStock(quantity);
 
         return new OrderLine(product, quantity);
     }

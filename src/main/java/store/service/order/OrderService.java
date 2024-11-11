@@ -14,12 +14,8 @@ public class OrderService {
     private final OrderPricingService orderPricingService;
     private final ProductService productService;
 
-    public OrderService(
-            OrderValidationService orderValidationService,
-            OrderProcessingService orderProcessingService,
-            OrderPricingService orderPricingService,
-            ProductService productService
-    ) {
+    public OrderService(OrderValidationService orderValidationService, OrderProcessingService orderProcessingService,
+                        OrderPricingService orderPricingService, ProductService productService) {
         this.orderValidationService = orderValidationService;
         this.orderProcessingService = orderProcessingService;
         this.orderPricingService = orderPricingService;
@@ -33,14 +29,12 @@ public class OrderService {
     }
 
     private List<OrderLine> createOrderLines(OrderRequest request, ViewHandler viewHandler) {
-        return request.getItems().stream()
-                .map(item -> {
-                    var product = productService.findByName(item.getProductName());
-                    if (product.hasPromotion()) {
-                        return orderProcessingService.processOrder(item, viewHandler);
-                    }
-                    return new OrderLine(product, item.getQuantity());
-                })
-                .collect(Collectors.toList());
+        return request.getItems().stream().map(item -> {
+            var product = productService.findByName(item.getProductName());
+            if (product.hasPromotion()) {
+                return orderProcessingService.processOrder(item, viewHandler);
+            }
+            return new OrderLine(product, item.getQuantity());
+        }).collect(Collectors.toList());
     }
 }

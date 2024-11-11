@@ -11,11 +11,7 @@ public class OrderController {
     private final ProductService productService;
     private final ViewHandler viewHandler;
 
-    public OrderController(
-            OrderService orderService,
-            ProductService productService,
-            ViewHandler viewHandler
-    ) {
+    public OrderController(OrderService orderService, ProductService productService, ViewHandler viewHandler) {
         this.orderService = orderService;
         this.productService = productService;
         this.viewHandler = viewHandler;

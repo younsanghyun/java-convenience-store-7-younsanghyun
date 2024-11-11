@@ -18,22 +18,16 @@ public class PromotionService {
     }
 
     public List<FreeProduct> applyPromotions(List<OrderLine> orderLines) {
-        return orderLines.stream()
-                .filter(this::isPromotionApplicable)
-                .map(this::createFreeProduct)
-                .filter(Optional::isPresent)
-                .map(Optional::get)
-                .collect(Collectors.toList());
+        return orderLines.stream().filter(this::isPromotionApplicable).map(this::createFreeProduct)
+                .filter(Optional::isPresent).map(Optional::get).collect(Collectors.toList());
     }
 
     private boolean isPromotionApplicable(OrderLine orderLine) {
-        return orderLine.getProduct().hasPromotion() &&
-                isPromotionValid(orderLine.getProduct().getPromotionName());
+        return orderLine.getProduct().hasPromotion() && isPromotionValid(orderLine.getProduct().getPromotionName());
     }
 
     private boolean isPromotionValid(String promotionName) {
-        return promotionRepository.findByName(promotionName)
-                .map(promotion -> promotion.isValid(DateTimes.now()))
+        return promotionRepository.findByName(promotionName).map(promotion -> promotion.isValid(DateTimes.now()))
                 .orElse(false);
     }
 
@@ -41,8 +35,6 @@ public class PromotionService {
         PromotionType promotionType = PromotionType.fromName(orderLine.getProduct().getPromotionName());
         int freeQuantity = promotionType.calculateFreeQuantity(orderLine.getQuantity());
 
-        return freeQuantity > 0 ?
-                Optional.of(new FreeProduct(orderLine.getProduct(), freeQuantity)) :
-                Optional.empty();
+        return freeQuantity > 0 ? Optional.of(new FreeProduct(orderLine.getProduct(), freeQuantity)) : Optional.empty();
     }
 }

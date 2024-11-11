@@ -24,22 +24,15 @@ public class OutputView {
 
     private void printOrderLines(Receipt receipt) {
         println("상품명\t\t수량\t금액");
-        receipt.getOrderLines().forEach(line ->
-                printf("%s\t\t%d\t%,d\n",
-                        line.getProductName(),
-                        line.getQuantity(),
-                        line.getAmount())
-        );
+        receipt.getOrderLines().forEach(
+                line -> printf("%s\t\t%d\t%,d\n", line.getProductName(), line.getQuantity(), line.getAmount()));
     }
 
     private void printFreeProducts(Receipt receipt) {
         if (!receipt.getFreeProducts().isEmpty()) {
             println("=============증\t정===============");
-            receipt.getFreeProducts().forEach(product ->
-                    printf("%s\t\t%d\n",
-                            product.getName(),
-                            product.getQuantity())
-            );
+            receipt.getFreeProducts()
+                    .forEach(product -> printf("%s\t\t%d\n", product.getName(), product.getQuantity()));
         }
     }
 
