@@ -43,5 +43,9 @@ public class ViewHandler {
     public void printError(String message) {
         outputView.printError(message);
     }
+
+    public boolean readAcceptRegularPrice(String productName, int quantity) {
+        return inputView.readAcceptRegularPrice(productName, quantity);
+    }
 }
 

@@ -26,7 +26,7 @@ public class OrderController {
         OrderRequest orderRequest = viewHandler.readOrder();
         boolean useMembership = viewHandler.readUseMembership();
 
-        return orderService.createOrder(orderRequest, useMembership);
+        return orderService.createOrder(orderRequest, useMembership, viewHandler);
     }
 }
 

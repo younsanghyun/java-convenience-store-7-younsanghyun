@@ -8,9 +8,13 @@ import store.repository.FilePromotionRepository;
 import store.repository.ProductRepository;
 import store.repository.PromotionRepository;
 import store.service.DiscountService;
+import store.service.OrderPricingService;
+import store.service.OrderProcessingService;
 import store.service.OrderService;
+import store.service.OrderValidationService;
 import store.service.ProductService;
 import store.service.PromotionService;
+import store.service.PromotionStockService;
 import store.validator.InputValidator;
 import store.validator.ProductValidator;
 import store.view.InputView;
@@ -18,7 +22,6 @@ import store.view.OutputView;
 import store.viewhandler.ViewHandler;
 
 public class AppConfig {
-
     public MainController mainController() {
         return new MainController(
                 orderController(),
@@ -32,6 +35,7 @@ public class AppConfig {
                 orderService(),
                 productService(),
                 viewHandler()
+
         );
     }
 
@@ -45,10 +49,24 @@ public class AppConfig {
 
     public OrderService orderService() {
         return new OrderService(
+                orderValidationService(),
+                orderProcessingService(),
+                orderPricingService(),
+                productService()
+        );
+    }
+
+    public OrderValidationService orderValidationService() {
+        return new OrderValidationService(
                 productService(),
-                promotionService(),
-                discountService(),
                 productValidator()
+        );
+    }
+
+    public OrderPricingService orderPricingService() {
+        return new OrderPricingService(
+                promotionService(),
+                discountService()
         );
     }
 
@@ -86,5 +104,13 @@ public class AppConfig {
 
     private OutputView outputView() {
         return new OutputView();
+    }
+
+    public OrderProcessingService orderProcessingService() {
+        return new OrderProcessingService(promotionStockService());
+    }
+
+    public PromotionStockService promotionStockService() {
+        return new PromotionStockService(productRepository());
     }
 }
