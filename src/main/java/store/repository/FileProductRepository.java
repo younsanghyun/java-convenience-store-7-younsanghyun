@@ -6,6 +6,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import store.constant.ErrorMesage;
 import store.domain.product.Product;
 
 public class FileProductRepository implements ProductRepository {
@@ -35,7 +36,7 @@ public class FileProductRepository implements ProductRepository {
             List<String> lines = readLines();
             return parseProductsWithNoStock(lines.subList(1, lines.size()));
         } catch (IOException e) {
-            throw new RuntimeException("[ERROR] 상품 파일을 읽을 수 없습니다.");
+            throw new RuntimeException(ErrorMesage.PRODUCT_FILE_UNREADABLE);
         }
     }
 

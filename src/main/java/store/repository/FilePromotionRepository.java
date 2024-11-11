@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import store.constant.ErrorMesage;
 import store.domain.promotion.Promotion;
 
 public class FilePromotionRepository implements PromotionRepository {
@@ -37,7 +38,7 @@ public class FilePromotionRepository implements PromotionRepository {
             List<String> lines = readLines();
             return parsePromotions(lines.subList(1, lines.size()));
         } catch (IOException e) {
-            throw new RuntimeException("[ERROR] 프로모션 파일을 읽을 수 없습니다.");
+            throw new RuntimeException(ErrorMesage.PROMOTION_FILE_UNREADABLE);
         }
     }
 
